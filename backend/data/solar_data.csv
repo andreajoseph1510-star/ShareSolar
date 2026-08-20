@@ -1,0 +1,5 @@
+household,generation,usage,excess
+A,120,80,40
+B,90,100,-10
+C,150,120,30
+D,110,90,20
