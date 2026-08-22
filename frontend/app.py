@@ -30,7 +30,7 @@ st.markdown(
 st.markdown('<p class="big-yellow">🌞 ShareSolar Dashboard</p>', unsafe_allow_html=True)
 
 # Tabs for navigation
-tab1, tab2 = st.tabs(["🏠 Household Data", "⚡ Community Summary"])
+tab1, tab2, tab3 = st.tabs(["🏠 Household Data", "⚡ Community Summary", "🎤 Voice Features"])
 
 # --- Household Data Tab ---
 with tab1:
@@ -84,3 +84,33 @@ with tab2:
 
     except Exception as e:
         st.error(f"Error loading summary: {e}")
+
+# --- Voice Features Tab ---
+with tab3:
+    st.markdown('<p class="section-yellow">Voice Features 🎤</p>', unsafe_allow_html=True)
+
+    # Text to Speech
+    st.subheader("Text to Speech")
+    text = st.text_input("Enter text to speak")
+    if st.button("Speak"):
+        try:
+            response = requests.post(
+                "http://127.0.0.1:8000/voice/speak",
+                params={"text": text, "language": "en"}
+            )
+            with open("output.mp3", "wb") as f:
+                f.write(response.content)
+            st.audio("output.mp3")
+        except Exception as e:
+            st.error(f"Error generating speech: {e}")
+
+    # Speech to Text
+    st.subheader("Speech to Text")
+    uploaded_file = st.file_uploader("Upload audio file", type=["mp3", "wav"])
+    if uploaded_file and st.button("Transcribe"):
+        try:
+            files = {"file": uploaded_file.getvalue()}
+            response = requests.post("http://127.0.0.1:8000/voice/transcribe", files=files)
+            st.write("Transcript:", response.json()["transcript"])
+        except Exception as e:
+            st.error(f"Error transcribing audio: {e}")

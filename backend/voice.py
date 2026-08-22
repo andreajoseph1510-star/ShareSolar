@@ -15,23 +15,22 @@ os.environ["PATH"] += os.pathsep + r"C:\Program Files\ffmpeg\bin"
 model = whisper.load_model("small", device="cpu")
 
 # --- Text to Speech ---
-@router.post("/speak")
+@router.post("/voice/speak")
 async def speak_text(text: str, language: str = "en"):
-    # Generate speech
+    """Convert text into speech and return an MP3 file."""
     tts = gTTS(text=text, lang=language)
     filename = "output.mp3"
     tts.save(filename)
     return FileResponse(filename, media_type="audio/mpeg")
 
 # --- Speech to Text ---
-@router.post("/transcribe")
+@router.post("/voice/transcribe")
 async def transcribe(file: UploadFile = File(...)):
-    # Save uploaded file temporarily
+    """Transcribe uploaded audio into text using Whisper."""
     audio_path = f"temp_{file.filename}"
     with open(audio_path, "wb") as f:
         f.write(await file.read())
 
-    # Run Whisper transcription
     result = model.transcribe(audio_path)
 
     # Clean up temp file
