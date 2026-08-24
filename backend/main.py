@@ -33,6 +33,15 @@ def get_summary():
         }
     except Exception as e:
         return {"error": f"Failed to load summary: {e}"}
+# --- Voice summary endpoint ---
+@app.get("/voice/summary")
+def voice_summary():
+    df = pd.read_csv("backend/data/solar_data.csv")
+    total_generation = int(df["generation"].sum())
+    total_usage = int(df["usage"].sum())
+    total_excess = int(df["excess"].sum())
+    text = f"The community generated {total_generation} kilowatt hours, used {total_usage}, with {total_excess} excess."
+    return voice.text_to_speech(text, language="en")
 
 # --- Voice Features ---
 app.include_router(voice.router)

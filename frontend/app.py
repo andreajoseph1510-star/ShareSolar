@@ -87,30 +87,30 @@ with tab2:
 
 # --- Voice Features Tab ---
 with tab3:
-    st.markdown('<p class="section-yellow">Voice Features 🎤</p>', unsafe_allow_html=True)
+   
+    st.title("Voice Features 🎙️")
 
-    # Text to Speech
+    # --- Text to Speech ---
     st.subheader("Text to Speech")
-    text = st.text_input("Enter text to speak")
+    text_input = st.text_input("Enter text to speak")
     if st.button("Speak"):
-        try:
-            response = requests.post(
-                "http://127.0.0.1:8000/voice/speak",
-                params={"text": text, "language": "en"}
-            )
-            with open("output.mp3", "wb") as f:
-                f.write(response.content)
-            st.audio("output.mp3")
-        except Exception as e:
-            st.error(f"Error generating speech: {e}")
+        response = requests.post("http://127.0.0.1:8000/voice/speak", params={"text": text_input})
+        with open("spoken.mp3", "wb") as f:
+            f.write(response.content)
+        st.audio("spoken.mp3")
 
-    # Speech to Text
+    # --- Speech to Text ---
     st.subheader("Speech to Text")
     uploaded_file = st.file_uploader("Upload audio file", type=["mp3", "wav"])
-    if uploaded_file and st.button("Transcribe"):
-        try:
-            files = {"file": uploaded_file.getvalue()}
-            response = requests.post("http://127.0.0.1:8000/voice/transcribe", files=files)
-            st.write("Transcript:", response.json()["transcript"])
-        except Exception as e:
-            st.error(f"Error transcribing audio: {e}")
+    if uploaded_file and st.button("Upload"):
+        files = {"file": uploaded_file.getvalue()}
+        response = requests.post("http://127.0.0.1:8000/voice/transcribe", files=files)
+        st.write(response.json())
+
+    # --- Speak Community Summary ---
+    st.subheader("Community Voice Summary")
+    if st.button("Speak Community Summary"):
+        response = requests.get("http://127.0.0.1:8000/voice/summary")
+        with open("summary.mp3", "wb") as f:
+            f.write(response.content)
+        st.audio("summary.mp3")
