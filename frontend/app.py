@@ -9,6 +9,38 @@ st.set_page_config(page_title="ShareSolar Dashboard", layout="wide")
 # Custom CSS for yellow headings
 st.markdown("""
 <style>
+
+.sun {
+    position: fixed;
+    top: 95px;
+    left: 80px;
+    font-size: 100px;
+    z-index: 999999;
+    animation: sunGlow 1.8s ease-in-out infinite;
+}
+
+@keyframes sunGlow {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px #FFD700);
+    }
+
+    50% {
+        transform: scale(1.12);
+        filter: drop-shadow(0 0 20px #FF9800)
+                drop-shadow(0 0 35px #FFD700);
+    }
+}
+
+</style>
+
+<div class="sun">☀️</div>
+""", unsafe_allow_html=True)
+
+
+
+st.markdown("""
+<style>
 .stApp {
     background: linear-gradient(135deg, #FFF3B0, #FFD166, #FFB347);
 }
