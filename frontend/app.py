@@ -7,30 +7,89 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="ShareSolar Dashboard", layout="wide")
 
 # Custom CSS for yellow headings
-st.markdown(
-    """
-    <style>
-    .big-yellow {
-        color: yellow;
-        font-size: 32px;
-        font-weight: bold;
-    }
-    .section-yellow {
-        color: yellow;
-        font-size: 24px;
-        font-weight: bold;
-        margin-top: 20px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""
+<style>
+.stApp {
+    background: linear-gradient(135deg, #FFF3B0, #FFD166, #FFB347);
+}
+/* Main title */
+.share-title {
+    text-align: center;
+    font-size: 50px;
+    font-weight: 700;
+    color: #8B4513;
+    margin-bottom: 25px;
+}
+/* Section headings */
+.section-yellow {
+    color: #7A3E00 !important;
+    font-weight: 700 !important;
+}
+
+/* Center the tabs */
+[data-baseweb="tab-list"] {
+    justify-content: center !important;
+    gap: 10px;
+}
+
+/* Tab text - BLUE */
+button[data-baseweb="tab"] {
+    color: #1976D2 !important;
+}
+
+/* Active tab - darker blue */
+button[data-baseweb="tab"][aria-selected="true"] {
+    color: #1565C0 !important;
+}
+
+/* Active tab underline */
+button[data-baseweb="tab"][aria-selected="true"]::after {
+    background-color: #1976D2 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 
 # Title
-st.markdown('<p class="big-yellow">🌞 ShareSolar Dashboard</p>', unsafe_allow_html=True)
+st.markdown(
+    '<div class="share-title">ShareSolar Dashboard</div>',
+    unsafe_allow_html=True
+)
+st.markdown("""
+<style>
+button[data-baseweb="tab"] {
+    justify-content: center;
+}
 
+[data-baseweb="tab-list"] {
+    justify-content: center;
+}
+</style>
+
+""", unsafe_allow_html=True)
+st.markdown("""
+<style>
+
+/* Voice Features headings and text */
+h1, h2, h3, p, label {
+    color: #7A3E00 !important;
+}
+
+/* Text input placeholder */
+.stTextInput input,
+.stTextArea textarea {
+    color: #7A3E00 !important;
+}
+
+/* Uploaded file information */
+[data-testid="stFileUploader"] {
+    color: #7A3E00 !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
 # Tabs for navigation
-tab1, tab2, tab3 = st.tabs(["🏠 Household Data", "⚡ Community Summary", "🎤 Voice Features"])
+tab1, tab2, tab3 = st.tabs([" Household Data", " Community Summary", "🎤 Voice Features"])
 
 # --- Household Data Tab ---
 with tab1:
