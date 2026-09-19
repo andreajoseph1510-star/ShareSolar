@@ -11,9 +11,9 @@ st.markdown("""
 <style>
 
 .sun {
-    position: fixed;
-    top: 95px;
-    left: 80px;
+    position: absolute;
+    top: 35px;
+    left: 30px;
     font-size: 100px;
     z-index: 999999;
     animation: sunGlow 1.8s ease-in-out infinite;
@@ -136,18 +136,29 @@ with tab1:
         st.bar_chart(df.set_index("household")[["generation", "usage", "excess"]])
 
         # Side-by-side pie charts
-        st.subheader("Usage vs Generation Pie Charts")
+        st.subheader("Use vs Generation Pie Charts")
+
         fig, ax = plt.subplots(1, 2, figsize=(10, 5))
 
         df.set_index("household")["generation"].plot.pie(
-            ax=ax[0], autopct='%1.1f%%', startangle=90, legend=False
+            ax=ax[0],
+            autopct='%1.1f%%',
+            startangle=90,
+            legend=False,
+            radius=0.8
         )
+
         ax[0].set_ylabel("")
         ax[0].set_title("Generation")
 
         df.set_index("household")["usage"].plot.pie(
-            ax=ax[1], autopct='%1.1f%%', startangle=90, legend=False
+            ax=ax[1],
+            autopct='%1.1f%%',
+            startangle=90,
+            legend=False,
+            radius=0.7
         )
+
         ax[1].set_ylabel("")
         ax[1].set_title("Usage")
 
