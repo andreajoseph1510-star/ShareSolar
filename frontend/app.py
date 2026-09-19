@@ -127,7 +127,7 @@ tab1, tab2, tab3 = st.tabs([" Household Data", " Community Summary", "🎤 Voice
 with tab1:
     st.markdown('<p class="section-yellow">Household Data 🏠</p>', unsafe_allow_html=True)
     try:
-        data = requests.get("http://127.0.0.1:8000/households").json()
+        data = requests.get("https://sharesolar.onrender.com/households").json()
         df = pd.DataFrame(data)
         st.dataframe(df, use_container_width=True)
 
@@ -171,7 +171,7 @@ with tab1:
 with tab2:
     st.markdown('<p class="section-yellow">Community Summary ⚡</p>', unsafe_allow_html=True)
     try:
-        summary = requests.get("http://127.0.0.1:8000/summary").json()
+        summary = requests.get("https://sharesolar.onrender.com/summary").json()
 
         # Metrics side by side
         col1, col2, col3 = st.columns(3)
@@ -196,7 +196,7 @@ with tab3:
     st.subheader("Text to Speech")
     text_input = st.text_input("Enter text to speak")
     if st.button("Speak"):
-        response = requests.post("http://127.0.0.1:8000/voice/speak", params={"text": text_input})
+        response = requests.post("https://sharesolar.onrender.com/voice/speak", params={"text": text_input})
         with open("spoken.mp3", "wb") as f:
             f.write(response.content)
         st.audio("spoken.mp3")
@@ -206,13 +206,13 @@ with tab3:
     uploaded_file = st.file_uploader("Upload audio file", type=["mp3", "wav"])
     if uploaded_file and st.button("Upload"):
         files = {"file": uploaded_file.getvalue()}
-        response = requests.post("http://127.0.0.1:8000/voice/transcribe", files=files)
+        response = requests.post("https://sharesolar.onrender.com/voice/transcribe", files=files)
         st.write(response.json())
 
     # --- Speak Community Summary ---
     st.subheader("Community Voice Summary")
     if st.button("Speak Community Summary"):
-        response = requests.get("http://127.0.0.1:8000/voice/summary")
+        response = requests.get("https://sharesolar.onrender.com/voice/summary")
         with open("summary.mp3", "wb") as f:
             f.write(response.content)
         st.audio("summary.mp3")
