@@ -104,13 +104,13 @@ st.markdown("""
 
 /* Voice Features headings and text */
 h1, h2, h3, p, label {
-    color: #7A3E00 !important;
+    color:#7A3E00 !important;
 }
 
 /* Text input placeholder */
 .stTextInput input,
 .stTextArea textarea {
-    color: #7A3E00 !important;
+    color: #C49A6C !important;
 }
 
 /* Uploaded file information */
