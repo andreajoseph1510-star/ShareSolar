@@ -19,7 +19,7 @@ ShareSolar provides:
 - ⚡ **Fair sharing logic** to distribute excess energy.
 - 🖥️ **FastAPI backend** for processing and APIs.
 - 🎙️ **Voice-enabled frontend** (Whisper + gTTS) for accessibility.
-- ☁️ **Firebase integration** for storage and collaboration.
+
 
 ---
 ## Impact
